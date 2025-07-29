@@ -11,7 +11,7 @@ extern "C" {
     fn alert(s: &str);
 }
 
-static TOKENIZER_JSON: &'static str = include_str!("./assets/tokenizer.json");
+static TOKENIZER_JSON: &'static str = include_str!("./assets/tokenizer.min.json");
 static TOKENIZER: Lazy<Tokenizer> = Lazy::new(|| Tokenizer::from_str(TOKENIZER_JSON).unwrap());
 
 #[wasm_bindgen]

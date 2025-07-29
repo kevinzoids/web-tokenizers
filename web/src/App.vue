@@ -1,5 +1,5 @@
 <script setup>
-import init, { tokenize } from './assets/wasm/wasm_tokenizers'
+import init, { tokenize } from './assets/wasm/web_tokenizers'
 import { ref } from 'vue';
 
 const isReady = ref(false);
