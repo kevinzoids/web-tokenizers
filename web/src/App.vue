@@ -1,26 +1,16 @@
 <script setup>
-import init, { tokenize } from './wasm/web_tokenizers'
 import { ref } from 'vue';
+import {encodeAsync} from './utils/encoder.js'
 
-const isReady = ref(false);
 const text = ref("test");
 const tokens = ref();
 
-init().then(() => {
+async function submit() {
   let start = performance.now();
-  console.log(tokenize(text.value));
-  console.log(performance.now() - start);
-
-  isReady.value = true;
-});
-
-function submit() {
-  let start = performance.now();
-  let result = tokenize(text.value);
+  let result = await encodeAsync(text.value);
   tokens.value = result.tokens;
   console.log(result.inputIds);
   console.log(result.attentionMask);
-
   console.log(performance.now() - start);
 }
 </script>
@@ -28,7 +18,7 @@ function submit() {
 <template>
   <div>
     <input v-model="text"></input>
-    <button v-on:click="submit" :disabled="!isReady">submit</button>
+    <button v-on:click="submit" >submit</button>
     <div>
       <pre>
         {{ tokens }}
