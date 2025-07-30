@@ -1,1 +1,1 @@
-wasm-pack build -t web -d ./web/src/assets/wasm --no-pack
+wasm-pack build -t web -d ./web/src/wasm --no-pack
