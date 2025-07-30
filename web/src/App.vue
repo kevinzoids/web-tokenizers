@@ -1,24 +1,27 @@
 <script setup>
-import { ref } from 'vue';
-import {encodeAsync} from './utils/encoder.js'
+import { ref } from "vue";
+import { encodeAsync } from "./utils/encoder.js";
 
 const text = ref("test");
 const tokens = ref();
+const loading = ref(false);
 
 async function submit() {
+  loading.value = true;
   let start = performance.now();
   let result = await encodeAsync(text.value);
   tokens.value = result.tokens;
   console.log(result.inputIds);
   console.log(result.attentionMask);
   console.log(performance.now() - start);
+  loading.value = false;
 }
 </script>
 
 <template>
   <div>
-    <input v-model="text"></input>
-    <button v-on:click="submit" >submit</button>
+    <input v-model="text" id="user-input" />
+    <button v-on:click="submit" :class="{ loading }">submit</button>
     <div>
       <pre>
         {{ tokens }}
@@ -41,5 +44,9 @@ async function submit() {
 
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+}
+
+.loading {
+  cursor: wait;
 }
 </style>
