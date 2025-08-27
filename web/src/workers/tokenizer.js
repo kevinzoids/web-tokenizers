@@ -1,5 +1,8 @@
 import init, { tokenize } from '../wasm/web_tokenizers.js';
 
+// pre-initialize
+init().then(() => tokenize(""));
+
 onmessage = async (event) => {
     const { id, text } = event.data;
 
